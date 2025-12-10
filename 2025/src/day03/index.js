@@ -6,10 +6,10 @@ const parseInput = (rawInput) => {
 };
 
 const findMaxIndex = (stringOfNums) => {
-  for (let j = 9; j >= 1; j--) {
-    for (let i = 0; i < stringOfNums.length; i++) {
-      if (j === Number(stringOfNums[i])) {
-        return i;
+  for (let i = 9; i >= 1; i--) {
+    for (let j = 0; j < stringOfNums.length; j++) {
+      if (i === Number(stringOfNums[j])) {
+        return j;
       }
     }
   }
@@ -31,7 +31,20 @@ const part1 = (rawInput) => {
 const part2 = (rawInput) => {
   const input = parseInput(rawInput);
   let totalJoltage = 0;
-
+  for (const bank of input) {
+    const digitIndices = [];
+    const digitValues = [];
+    let lastIndex = -1;
+    for (let i = 0; i < 12; i++) {
+      digitIndices[i] =
+        findMaxIndex(bank.slice(lastIndex + 1, bank.length + i - 11)) +
+        lastIndex +
+        1;
+      digitValues[i] = bank[digitIndices[i]];
+      lastIndex = digitIndices[i];
+    }
+    totalJoltage += Number(digitValues.join(""));
+  }
   return totalJoltage.toString();
 };
 
@@ -65,5 +78,5 @@ run({
     solution: part2,
   },
   trimTestInputs: true,
-  onlyTests: true,
+  // onlyTests: true,
 });
