@@ -32,16 +32,14 @@ const part2 = (rawInput) => {
   const input = parseInput(rawInput);
   let totalJoltage = 0;
   for (const bank of input) {
-    const digitIndices = [];
     const digitValues = [];
-    let lastIndex = -1;
+    let currentIndex = -1;
     for (let i = 0; i < 12; i++) {
-      digitIndices[i] =
-        findMaxIndex(bank.slice(lastIndex + 1, bank.length + i - 11)) +
-        lastIndex +
+      currentIndex =
+        findMaxIndex(bank.slice(currentIndex + 1, bank.length + i - 11)) +
+        currentIndex +
         1;
-      digitValues[i] = bank[digitIndices[i]];
-      lastIndex = digitIndices[i];
+      digitValues[i] = bank[currentIndex];
     }
     totalJoltage += Number(digitValues.join(""));
   }
