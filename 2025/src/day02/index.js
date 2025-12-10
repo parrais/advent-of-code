@@ -17,8 +17,8 @@ const parseInput = (rawInput) => {
 const part1 = (rawInput) => {
   const input = parseInput(rawInput);
   let invalidTotal = 0;
-  for (const range in input) {
-    for (let i = input[range][0]; i <= input[range][1]; i++) {
+  for (const range of input) {
+    for (let i = range[0]; i <= range[1]; i++) {
       const idString = i.toString();
       const idLength = idString.length;
       if (
